@@ -1,0 +1,48 @@
+@import "./colours.scss";
+
+body {
+  margin: 0;
+  background-color: $page-background;
+}
+
+p {
+  margin: 0;
+  color: $font-colour;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: $border 1px solid;
+  padding: 1rem;
+}
+
+.home-link {
+  font-size: x-large;
+}
+
+.home-link:hover {
+  cursor: pointer;
+  color: $primary-color;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-menu-item-wrapper {
+  border: $primary-color 1px solid;
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+.nav-menu-item-wrapper:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+.nav-menu-item {
+  color: $primary-color;
+}

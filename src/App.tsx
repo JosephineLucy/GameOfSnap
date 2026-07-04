@@ -1,7 +1,7 @@
-import "./App.css";
+import TopNav from "./components/TopNav";
 
 function App() {
-  return <h1>Snap Game</h1>;
+  return <TopNav />;
 }
 
 export default App;
