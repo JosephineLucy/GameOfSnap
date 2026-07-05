@@ -18,13 +18,43 @@ nav {
   padding: 1rem;
 }
 
+.action-button {
+  border-radius: 12px;
+  border: 2px solid darken($primary-colour, 10%);
+  padding: 1rem 2rem;
+  background-color: $primary-colour;
+  color: $action-button-font;
+  font-size: x-large;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: $action-button-font;
+  color: $primary-colour;
+  font-size: x-large;
+}
+
+.card-pair {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rem;
+  gap: 6rem;
+}
+
 .home-link {
   font-size: x-large;
 }
 
 .home-link:hover {
   cursor: pointer;
-  color: $primary-color;
+  color: $primary-colour;
 }
 
 .nav-menu {
@@ -33,7 +63,7 @@ nav {
 }
 
 .nav-menu-item-wrapper {
-  border: $primary-color 1px solid;
+  border: $primary-colour 1px solid;
   border-radius: 50%;
   padding: 0.5rem;
 }
@@ -44,5 +74,5 @@ nav {
 }
 
 .nav-menu-item {
-  color: $primary-color;
+  color: $primary-colour;
 }
