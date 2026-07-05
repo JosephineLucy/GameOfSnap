@@ -1,14 +1,11 @@
 import { useCallback } from "react";
+import { useSnapContext } from "../../../context/useSnapContext";
 
-type GameActionProps = {
-  setDrawNewCard: React.Dispatch<React.SetStateAction<boolean>>;
-  deckId: string | undefined;
-};
-
-function GameAction({ setDrawNewCard, deckId }: GameActionProps) {
+function GameAction() {
+  const { deckId, setDrawCardFlag } = useSnapContext();
   const onClick = useCallback(() => {
-    setDrawNewCard(true);
-  }, [setDrawNewCard]);
+    setDrawCardFlag(true);
+  }, [setDrawCardFlag]);
 
   return (
     <button className="action-button" onClick={onClick} disabled={!deckId}>

@@ -1,11 +1,10 @@
 import CardPair from "./CardPair";
 import GameAction from "./GameAction";
-import { useState } from "react";
 import { useGetDeck } from "./helpers";
+import MatchTracker from "./MatchTracker";
 
 function GameMain() {
-  const [drawNewCard, setDrawNewCard] = useState(false);
-  const { deckId, error, loading } = useGetDeck();
+  const { error, loading } = useGetDeck();
 
   if (loading) {
     return <p>loading</p>;
@@ -17,12 +16,9 @@ function GameMain() {
 
   return (
     <div className="game-main">
-      <CardPair
-        drawNewCard={drawNewCard}
-        deckId={deckId}
-        setDrawNewCard={setDrawNewCard}
-      />
-      <GameAction setDrawNewCard={setDrawNewCard} deckId={deckId} />
+      <MatchTracker />
+      <CardPair />
+      <GameAction />
     </div>
   );
 }

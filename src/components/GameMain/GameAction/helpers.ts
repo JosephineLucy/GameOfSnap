@@ -1,44 +1,64 @@
 import { useEffect, useState } from "react";
+import { useSnapContext } from "../../../context/useSnapContext";
 import type { GetCardResponse } from "../../../types";
 
 export async function getCard(deckId: string) {
-  try {
-    const response = await fetch(
-      `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
-    );
+  const response = await fetch(
+    `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
+  );
 
-    const data: GetCardResponse = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching deck:", error);
-  }
+  const data: GetCardResponse = await response.json();
+  return data;
 }
 
 export function useGetCard(deckId: string) {
-  const [image, setImage] = useState<string | undefined>();
-  const [value, setValue] = useState<string | undefined>();
-  const [suit, setSuit] = useState<string | undefined>();
-  const [remaining, setRemaining] = useState<number | undefined>();
-  const [loading, setLoading] = useState(true);
+  const {
+    currentCard,
+    setCurrentCard,
+    setPreviousCard,
+    setCardsRemaining,
+    setDrawCardFlag,
+  } = useSnapContext();
+
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const fetchDeck = async () => {
+    const fetchCard = async () => {
       try {
+        setLoading(true);
+
         const data = await getCard(deckId);
-        setImage(data?.cards[0].image);
-        setValue(data?.cards[0].value);
-        setSuit(data?.cards[0].suit);
-        setRemaining(data?.remaining);
+        if (!data) return;
+
+        setCurrentCard((prev) => {
+          setPreviousCard(prev);
+
+          return {
+            image: data.cards[0].image,
+            value: data.cards[0].value,
+            suit: data.cards[0].suit,
+          };
+        });
+
+        setCardsRemaining(data.remaining);
       } catch (err) {
         setError(err as Error);
       } finally {
+        setDrawCardFlag(false);
         setLoading(false);
       }
     };
 
-    fetchDeck();
-  }, [deckId]);
+    fetchCard();
+  }, [
+    deckId,
+    currentCard,
+    setCardsRemaining,
+    setCurrentCard,
+    setPreviousCard,
+    setDrawCardFlag,
+  ]);
 
-  return { image, value, suit, remaining, loading, error };
+  return { loading, error };
 }

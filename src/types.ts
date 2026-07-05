@@ -19,12 +19,14 @@ export type ResponseCard = {
     svg: string;
     png: string;
   };
-  value: string;
+  value: number;
   suit: string;
 };
 
 export type DisplayCard = {
   image: string;
-  value: string;
+  value: number;
   suit: string;
 };
+
+export type NotificationType = "suitMatch" | "valueMatch";

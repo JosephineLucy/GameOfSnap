@@ -1,47 +1,14 @@
-import { useEffect } from "react";
-import type { DisplayCard } from "../../../types";
 import { useGetCard } from "../GameAction/helpers";
 import Card from "../Card";
-import BackOfCard from "../BackOfCard";
+import { useSnapContext } from "../../../context/useSnapContext";
 
 type NewCardProps = {
   deckId: string;
-  currentCard: DisplayCard | undefined;
-  setCurrentCard: React.Dispatch<React.SetStateAction<DisplayCard | undefined>>;
-  setPreviousCard: React.Dispatch<
-    React.SetStateAction<DisplayCard | undefined>
-  >;
-  setDrawNewCard: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function NewCard({
-  deckId,
-  currentCard,
-  setCurrentCard,
-  setPreviousCard,
-  setDrawNewCard,
-}: NewCardProps) {
-  const { error, image, loading, suit, value } = useGetCard(deckId);
-
-  useEffect(() => {
-    if (image && suit && value) {
-      setPreviousCard(currentCard);
-      setCurrentCard({ image, suit, value });
-      setDrawNewCard(false);
-    }
-  }, [
-    image,
-    suit,
-    value,
-    setCurrentCard,
-    setPreviousCard,
-    currentCard,
-    setDrawNewCard,
-  ]);
-
-  if (loading) {
-    return <BackOfCard />;
-  }
+function NewCard({ deckId }: NewCardProps) {
+  const { error } = useGetCard(deckId);
+  const { currentCard } = useSnapContext();
 
   if (error) {
     return <p>error</p>;

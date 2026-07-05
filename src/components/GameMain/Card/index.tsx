@@ -1,7 +1,7 @@
 import type { DisplayCard } from "../../../types";
 
 type CardProps = {
-  card: DisplayCard | undefined;
+  card: DisplayCard | null;
 };
 
 function Card({ card }: CardProps) {

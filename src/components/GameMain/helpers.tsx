@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
 import type { GetDeckResponse } from "../../types";
+import { useSnapContext } from "../../context/useSnapContext";
 
 export async function getDeck() {
-  try {
-    const response = await fetch(
-      "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
-    );
+  const response = await fetch(
+    "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+  );
 
-    const data: GetDeckResponse = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching deck:", error);
-  }
+  const data: GetDeckResponse = await response.json();
+  return data;
 }
 
 export function useGetDeck() {
-  const [deckId, setDeckId] = useState<string | undefined>();
+  const { setDeckId, setCardsRemaining } = useSnapContext();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchDeck = async () => {
       try {
+        setLoading(true);
+
         const data = await getDeck();
-        setDeckId(data?.deck_id);
+        if (!data) return;
+
+        setDeckId(data.deck_id);
+        setCardsRemaining(data.remaining);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -33,7 +35,7 @@ export function useGetDeck() {
     };
 
     fetchDeck();
-  }, []);
+  }, [setDeckId, setCardsRemaining]);
 
-  return { deckId, loading, error };
+  return { loading, error };
 }
