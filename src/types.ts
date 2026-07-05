@@ -8,7 +8,7 @@ export type GetDeckResponse = {
 export type GetCardResponse = {
   success: boolean;
   deck_id: string;
-  cards: [ResponseCard];
+  cards: ResponseCard[];
   remaining: number;
 };
 
@@ -19,14 +19,19 @@ export type ResponseCard = {
     svg: string;
     png: string;
   };
-  value: number;
+  value: string;
   suit: string;
 };
 
 export type DisplayCard = {
   image: string;
-  value: number;
+  value: string;
   suit: string;
 };
 
 export type NotificationType = "suitMatch" | "valueMatch";
+
+export type GetDeckState = {
+  loading: boolean;
+  error: Error | null;
+};
