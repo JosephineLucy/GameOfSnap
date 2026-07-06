@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSnapContext } from "../../../context/useSnapContext";
-import type { GetCardResponse } from "../../../types";
-
-export async function getCard(deckId: string) {
-  const response = await fetch(
-    `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
-  );
-
-  const data: GetCardResponse = await response.json();
-  return data;
-}
+import { useSnapContext } from "../context/useSnapContext";
+import { getCard } from "../api";
 
 export function useGetCard(deckId: string) {
   const {

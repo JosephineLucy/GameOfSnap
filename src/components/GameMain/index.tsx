@@ -2,7 +2,7 @@ import { useSnapContext } from "../../context/useSnapContext";
 import CardPair from "./CardPair";
 import GameAction from "./GameAction";
 import GameStats from "./GameStats";
-import { useGetDeck } from "./helpers";
+import { useGetDeck } from "../../hooks/useGetDeck";
 import MatchTracker from "./MatchTracker";
 
 function GameMain() {

@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
-import type { GetDeckResponse } from "../../types";
-import { useSnapContext } from "../../context/useSnapContext";
-
-export async function getDeck() {
-  const response = await fetch(
-    "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
-  );
-
-  const data: GetDeckResponse = await response.json();
-  return data;
-}
+import { useSnapContext } from "../context/useSnapContext";
+import { getDeck } from "../api";
 
 export function useGetDeck() {
   const { setDeckId, setCardsRemaining } = useSnapContext();

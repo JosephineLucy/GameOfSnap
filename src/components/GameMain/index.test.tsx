@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/vitest";
 import { vi } from "vitest";
 import GameMain from "./index";
 import { useSnapContext } from "../../context/useSnapContext";
-import { useGetDeck } from "./helpers";
+import { useGetDeck } from "../../hooks/useGetDeck";
 import type { GetDeckState } from "../../types";
 import type { SnapContextType } from "../../context/SnapContext";
 
