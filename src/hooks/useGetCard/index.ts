@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSnapContext } from "../context/useSnapContext";
-import { getCard } from "../api";
+import { useSnapContext } from "../../context/useSnapContext";
+import { getCard } from "../../api";
 
 export function useGetCard(deckId: string) {
   const {

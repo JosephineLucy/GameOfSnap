@@ -1,6 +1,6 @@
+import { useSnapContext } from "../../../../context/useSnapContext";
 import Card from "../Card";
 import NewCard from "../NewCard";
-import { useSnapContext } from "../../../context/useSnapContext";
 
 function CurrentCard() {
   const { drawCardFlag, currentCard, deckId } = useSnapContext();

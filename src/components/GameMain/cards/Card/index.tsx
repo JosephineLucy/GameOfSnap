@@ -1,4 +1,4 @@
-import type { DisplayCard } from "../../../types";
+import type { DisplayCard } from "../../../../types";
 
 type CardProps = {
   card: DisplayCard | null;

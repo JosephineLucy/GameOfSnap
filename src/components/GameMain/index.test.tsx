@@ -7,10 +7,15 @@ import { useGetDeck } from "../../hooks/useGetDeck";
 import type { GetDeckState } from "../../types";
 import type { SnapContextType } from "../../context/SnapContext";
 
-vi.mock("../../context/useSnapContext");
-vi.mock("./helpers");
+vi.mock("../../context/useSnapContext", () => ({
+  useSnapContext: vi.fn(),
+}));
 
-vi.mock("./CardPair", () => ({
+vi.mock("../../hooks/useGetDeck", () => ({
+  useGetDeck: vi.fn(),
+}));
+
+vi.mock("./cards/CardPair", () => ({
   default: () => <div data-testid="card-pair" />,
 }));
 
@@ -27,11 +32,17 @@ vi.mock("./MatchTracker", () => ({
 }));
 
 describe("GameMain", () => {
-  const mockUseSnapContext = vi.mocked(useSnapContext);
-  const mockUseGetDeck = vi.mocked(useGetDeck);
+  const mockUseSnapContext = useSnapContext as unknown as ReturnType<
+    typeof vi.fn
+  >;
+  const mockUseGetDeck = useGetDeck as unknown as ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();
+
+    mockUseSnapContext.mockReturnValue({
+      cardsRemaining: 10,
+    } as Partial<SnapContextType> as SnapContextType);
   });
 
   test("when loading, shows loading fallback", () => {
@@ -39,10 +50,6 @@ describe("GameMain", () => {
       loading: true,
       error: null,
     } as GetDeckState);
-
-    mockUseSnapContext.mockReturnValue({
-      cardsRemaining: 10,
-    } as Pick<SnapContextType, "cardsRemaining"> as SnapContextType);
 
     render(<GameMain />);
 
@@ -55,10 +62,6 @@ describe("GameMain", () => {
       error: new Error(),
     } as GetDeckState);
 
-    mockUseSnapContext.mockReturnValue({
-      cardsRemaining: 10,
-    } as Pick<SnapContextType, "cardsRemaining"> as SnapContextType);
-
     render(<GameMain />);
 
     expect(screen.getByText("error")).toBeInTheDocument();
@@ -70,10 +73,6 @@ describe("GameMain", () => {
       error: null,
     } as GetDeckState);
 
-    mockUseSnapContext.mockReturnValue({
-      cardsRemaining: 10,
-    } as Pick<SnapContextType, "cardsRemaining"> as SnapContextType);
-
     render(<GameMain />);
 
     expect(screen.getByTestId("match-tracker")).toBeInTheDocument();
@@ -82,14 +81,14 @@ describe("GameMain", () => {
   });
 
   test("renders stats when no cards remaining", () => {
+    mockUseSnapContext.mockReturnValue({
+      cardsRemaining: 0,
+    } as Partial<SnapContextType> as SnapContextType);
+
     mockUseGetDeck.mockReturnValue({
       loading: false,
       error: null,
     } as GetDeckState);
-
-    mockUseSnapContext.mockReturnValue({
-      cardsRemaining: 0,
-    } as Pick<SnapContextType, "cardsRemaining"> as SnapContextType);
 
     render(<GameMain />);
 

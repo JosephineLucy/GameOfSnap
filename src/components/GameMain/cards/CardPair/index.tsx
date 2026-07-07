@@ -1,6 +1,6 @@
 import Card from "../Card";
 import CurrentCard from "../CurrentCard";
-import { useSnapContext } from "../../../context/useSnapContext";
+import { useSnapContext } from "../../../../context/useSnapContext";
 
 function CardPair() {
   const { previousCard } = useSnapContext();

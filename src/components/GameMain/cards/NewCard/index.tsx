@@ -1,6 +1,6 @@
-import { useGetCard } from "../GameAction/helpers";
+import { useGetCard } from "../../../../hooks/useGetCard";
 import Card from "../Card";
-import { useSnapContext } from "../../../context/useSnapContext";
+import { useSnapContext } from "../../../../context/useSnapContext";
 
 type NewCardProps = {
   deckId: string;

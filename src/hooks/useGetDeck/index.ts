@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSnapContext } from "../context/useSnapContext";
-import { getDeck } from "../api";
+import { useSnapContext } from "../../context/useSnapContext";
+import { getDeck } from "../../api";
 
 export function useGetDeck() {
   const { setDeckId, setCardsRemaining } = useSnapContext();

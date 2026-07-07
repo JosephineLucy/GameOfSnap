@@ -1,5 +1,5 @@
 import { useSnapContext } from "../../context/useSnapContext";
-import CardPair from "./CardPair";
+import CardPair from "./cards/CardPair";
 import GameAction from "./GameAction";
 import GameStats from "./GameStats";
 import { useGetDeck } from "../../hooks/useGetDeck";
