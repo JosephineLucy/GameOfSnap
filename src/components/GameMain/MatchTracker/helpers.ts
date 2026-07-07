@@ -1,6 +1,6 @@
 export function checkValueMatch(
-  previousValue: number | undefined,
-  currentValue: number | undefined,
+  previousValue: string | undefined,
+  currentValue: string | undefined,
 ) {
   if (!previousValue || !currentValue) {
     return;
