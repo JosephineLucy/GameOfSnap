@@ -14,8 +14,6 @@ export type SnapContextType = {
   setPreviousCard: React.Dispatch<React.SetStateAction<DisplayCard | null>>;
   currentCard: DisplayCard | null;
   setCurrentCard: React.Dispatch<React.SetStateAction<DisplayCard | null>>;
-  drawCardFlag: boolean;
-  setDrawCardFlag: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SnapContext = createContext<SnapContextType | undefined>(

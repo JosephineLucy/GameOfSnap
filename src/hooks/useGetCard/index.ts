@@ -1,55 +1,38 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSnapContext } from "../../context/useSnapContext";
 import { getCard } from "../../api";
 
-export function useGetCard(deckId: string) {
-  const {
-    currentCard,
-    setCurrentCard,
-    setPreviousCard,
-    setCardsRemaining,
-    setDrawCardFlag,
-  } = useSnapContext();
-
+export function useGetCard() {
+  const { setCurrentCard, setPreviousCard, setCardsRemaining, deckId } =
+    useSnapContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const fetchCard = async () => {
-      try {
-        setLoading(true);
+  async function fetchCard() {
+    if (!deckId) return;
+    try {
+      setLoading(true);
 
-        const data = await getCard(deckId);
-        if (!data) return;
+      const data = await getCard(deckId);
+      if (!data) return;
 
-        setCurrentCard((prev) => {
-          setPreviousCard(prev);
+      setCurrentCard((prev) => {
+        setPreviousCard(prev);
 
-          return {
-            image: data.cards[0].image,
-            value: data.cards[0].value,
-            suit: data.cards[0].suit,
-          };
-        });
+        return {
+          image: data.cards[0].image,
+          value: data.cards[0].value,
+          suit: data.cards[0].suit,
+        };
+      });
 
-        setCardsRemaining(data.remaining);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setDrawCardFlag(false);
-        setLoading(false);
-      }
-    };
+      setCardsRemaining(data.remaining);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-    fetchCard();
-  }, [
-    deckId,
-    currentCard,
-    setCardsRemaining,
-    setCurrentCard,
-    setPreviousCard,
-    setDrawCardFlag,
-  ]);
-
-  return { loading, error };
+  return { fetchCard, loading, error };
 }
